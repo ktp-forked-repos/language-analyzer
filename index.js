@@ -79,10 +79,17 @@ class QuestionAnalyzer {
             case 'what':
                 for (const regex of RegexTests.What) {
                     if(string.search(regex) !== -1) {
-
+                        
                     }
                 }
+                break;
+            case 'who':
+                break;
+            default:
+                break;
         }
+
+        return undefined;
     }
 }
 
