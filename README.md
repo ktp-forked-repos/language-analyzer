@@ -21,6 +21,7 @@ questionAnalyzer.analyze(sentence, (result, state) => {
 ```
 
 **Output Object (ideal case):**
+
 |Property|Data Type|Description|
 |--------|---------|-----------|
 |root|`string`|The root "wh-" word determining what type of question it is. Can be `who`, `what`, `where`, `when`, `why`, `how`, or `rest`. A *rest* type is an indirect question.|
