@@ -25,7 +25,7 @@ const RegexTests = {
         // ABBR:exp pattern
         { test_name: 'abbr_exp', regex: /^what(\s+)(do|does)[\w\s.,\/#!$%\^&\*;:{}=\-_`~()]*stand for[.?!]{1}$/, lookup: ''}
     ],
-    Who: { test_name: 'hum_desc', regex: / /, lookup: ''}
+    Who: { test_name: 'hum_desc', regex: /^who(\s+)(is|was){1}(\s+)([A-Z]{1}(\s*\w*)*)[.?!]{1}$/, lookup: 'hum_desc'}
 };
 
 // Analyzer based on the algorithms here: http://www.aclweb.org/anthology/D08-1097
@@ -35,7 +35,7 @@ class QuestionAnalyzer {
     }
 
     analyze(sentence) {
-        if(typeof sentence === "string") {
+        if (typeof sentence === "string") {
             throw new TypeError(`Only string-based sentences can be analyzed (got ${typeof sentence}).`)
         }
 
@@ -49,22 +49,26 @@ class QuestionAnalyzer {
 
         result.root = this.getRootWord(sentence);
         result.head = this.getHeadWord(result.root, sentence);
+
+        if (result.head !== undefined) {
+            
+        }
     }
 
     getRootWord(sentence) {
-        if(sentence.match(new RegExp(/who(\s\n)+/, "gi"))) return "who";
-        if(sentence.match(new RegExp(/what(\s\n)+/, "gi"))) return "what";
-        if(sentence.match(new RegExp(/where(\s\n)+/, "gi"))) return "where";
-        if(sentence.match(new RegExp(/when(\s\n)+/, "gi"))) return "when";
-        if(sentence.match(new RegExp(/why(\s\n)+/, "gi"))) return "why";
-        if(sentence.match(new RegExp(/how(\s\n)+/, "gi"))) return "how";
+        if (sentence.match(new RegExp(/who(\s\n)+/, "gi"))) return "who";
+        if (sentence.match(new RegExp(/what(\s\n)+/, "gi"))) return "what";
+        if (sentence.match(new RegExp(/where(\s\n)+/, "gi"))) return "where";
+        if (sentence.match(new RegExp(/when(\s\n)+/, "gi"))) return "when";
+        if (sentence.match(new RegExp(/why(\s\n)+/, "gi"))) return "why";
+        if (sentence.match(new RegExp(/how(\s\n)+/, "gi"))) return "how";
         return "root";
     }
 
     getHeadWord(type, sentence) {
         type = type.toLowerCase();
         const words = sentence.split(RegexTests.Whitespace);
-        switch(type) {
+        switch (type) {
             case 'when':
             case 'where':
             case 'why':
@@ -72,23 +76,30 @@ class QuestionAnalyzer {
             case 'how':
                 let i = 0;
                 for (const word of words) {
-                    if(word === 'how') break;
+                    if (word === 'how') break;
                     i++;
                 }
                 return words[(i+1)];
             case 'what':
-                for (const regex of RegexTests.What) {
-                    if(string.search(regex) !== -1) {
-                        
+                for (const test of RegexTests.What) {
+                    if (sentence.match(test.regex) !== -1) {
+                        return test.lookup;
                     }
                 }
                 break;
             case 'who':
+                if (sentence.match(RegexTests.Who.regex)) {
+                    return RegexTests.Who.lookup;
+                }
                 break;
             default:
+                return undefined; // no pattern match
+                // TODO: extract candidate head word from parse tree
                 break;
         }
 
+        // no category match or patterns for given category all failed
+        // dead end...
         return undefined;
     }
 }
