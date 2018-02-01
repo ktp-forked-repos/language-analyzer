@@ -34,7 +34,7 @@ class QuestionAnalyzer {
 
     }
 
-    analyze(sentence) {
+    analyze(sentence, callback) {
         if (typeof sentence === "string") {
             throw new TypeError(`Only string-based sentences can be analyzed (got ${typeof sentence}).`)
         }
@@ -51,7 +51,9 @@ class QuestionAnalyzer {
         result.head = this.getHeadWord(result.root, sentence);
 
         if (result.head !== undefined) {
-            
+            callback(true, result);
+        } else {
+            callback(false, result);
         }
     }
 
