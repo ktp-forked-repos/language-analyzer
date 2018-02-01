@@ -1,0 +1,9 @@
+{
+  "name": "language-analyzer",
+  "version": "1.0.0",
+  "description": "A library enabling individual sentences to be analyzed and chunked into relevant parts of speech.",
+  "main": "index.js",
+  "author": "Alex Belluscio",
+  "license": "MIT",
+  "private": false
+}
