@@ -4,6 +4,8 @@ NPM module for breaking down sentences into their identifiable functional compon
 **BEWARE! This project is in active development and may break at any time.**
 
 ## Available Classes
+These analyzer classes perform pre-defined algorithms for breaking down various types of sentences. Each Analyzer is based on WordNet.
+
 ### `QuestionAnalyzer`
 The `QuestionAnalyzer` class can be used to break down questions and determine what sort of answer to search for or otherwise expect. For example, if you have the question *Where is Israel?* the analyzer will be able to tell you that you should search for or otherwise expect a *location*.
 

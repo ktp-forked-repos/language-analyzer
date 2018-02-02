@@ -6,5 +6,8 @@
   "author": "Alex Belluscio",
   "license": "MIT",
   "private": false,
-  "repository": "git@github.com:JuicyKitten/language-analyzer.git"
+  "repository": "git@github.com:JuicyKitten/language-analyzer.git",
+  "dependencies": {
+    "wordnet": "^0.1.2"
+  }
 }
