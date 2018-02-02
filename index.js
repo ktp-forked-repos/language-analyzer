@@ -35,7 +35,7 @@ class QuestionAnalyzer {
     }
 
     analyze(sentence, callback) {
-        if (typeof sentence === "string") {
+        if (typeof sentence !== "string") {
             throw new TypeError(`Only string-based sentences can be analyzed (got ${typeof sentence}).`)
         }
 

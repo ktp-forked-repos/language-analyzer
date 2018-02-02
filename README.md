@@ -1,6 +1,8 @@
 # Language Analyzer
 NPM module for breaking down sentences into their identifiable functional components. This library has a few tools which can be used to break down sentences based on their relevant grammar parse trees according to the Brown Corpus.
 
+**BEWARE! This project is in active development and may break at any time.**
+
 ## Available Classes
 ### `QuestionAnalyzer`
 The `QuestionAnalyzer` class can be used to break down questions and determine what sort of answer to search for or otherwise expect. For example, if you have the question *Where is Israel?* the analyzer will be able to tell you that you should search for or otherwise expect a *location*.
